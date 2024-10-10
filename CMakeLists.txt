@@ -11,6 +11,8 @@ set(SRCDIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 set(INCDIR ${CMAKE_CURRENT_SOURCE_DIR}/Include)
 set(THIRDPARTY ${CMAKE_CURRENT_SOURCE_DIR}/ThirdParty)
 
+include(${CMAKE_CURRENT_SOURCE_DIR}/CMake/DetectWindowingSystem.cmake)
+
 include_directories(
   ${SRCDIR}
   ${INCDIR}
@@ -35,3 +37,4 @@ add_library(XenWindow STATIC
 
 # EXAMPLES
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Examples)
+
