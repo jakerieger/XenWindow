@@ -1,6 +1,8 @@
-#include <XenWindow/XenWindow.h>
+#include <XenWindow/WaylandWindow.h>
 
 int main() {
-    Xen::sayHello();
+    Xen::WaylandWindow window("Wayland Window", 800, 600);
+    window.show();
+
     return 0;
 }

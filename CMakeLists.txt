@@ -19,10 +19,13 @@ include_directories(
 
 set(LIB_INCLUDES
   ${INCDIR}/XenWindow/XenWindow.h
+  ${INCDIR}/XenWindow/NativeWindow.h
+  ${INCDIR}/XenWindow/WaylandWindow.h 
 )
 
 set(LIB_SOURCES
   ${SRCDIR}/XenWindow.cpp
+  ${SRCDIR}/WaylandWindow.cpp
 )
 
 add_library(XenWindow STATIC
