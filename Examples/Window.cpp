@@ -1,8 +1,15 @@
-#include <XenWindow/WaylandWindow.h>
+#define INC_FUNCTION
+#include <XenWindow/XenWindow.h>
 
 int main() {
-    Xen::WaylandWindow window("Wayland Window", 800, 600);
-    window.show();
+    auto window = Xen::CreateWindow("My Window", 800, 600);
+    window->show();
+
+    static bool running = true;
+    while (running) {
+        window->update();
+    }
+    window->close();
 
     return 0;
 }

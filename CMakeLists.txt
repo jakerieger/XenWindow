@@ -22,18 +22,57 @@ include_directories(
 set(LIB_INCLUDES
   ${INCDIR}/XenWindow/XenWindow.h
   ${INCDIR}/XenWindow/NativeWindow.h
-  ${INCDIR}/XenWindow/WaylandWindow.h 
 )
 
 set(LIB_SOURCES
   ${SRCDIR}/XenWindow.cpp
-  ${SRCDIR}/WaylandWindow.cpp
+  ${SRCDIR}/Panic.inl
 )
 
 add_library(XenWindow STATIC
   ${LIB_INCLUDES}
   ${LIB_SOURCES}
 )
+
+# Handle platform-specific sources 
+if (WINDOWING_SYSTEM STREQUAL "Windows")
+    add_definitions(-D_WS_WINDOWS)
+
+    target_sources(XenWindow PRIVATE
+        ${INCDIR}/XenWindow/Win32Window.h 
+        ${SRCDIR}/Win32Window.cpp
+    )
+elseif(WINDOWING_SYSTEM STREQUAL "X11")
+    add_definitions(-D_WS_X11)
+
+    target_sources(XenWindow PRIVATE
+        ${INCDIR}/XenWindow/X11Window.h 
+        ${SRCDIR}/X11Window.cpp
+    )
+
+    target_link_libraries(XenWindow PRIVATE X11)
+elseif (WINDOWING_SYSTEM STREQUAL "Wayland")
+    add_definitions(-D_WS_WAYLAND)
+
+    target_sources(XenWindow PRIVATE
+        ${INCDIR}/XenWindow/WaylandWindow.h 
+        ${SRCDIR}/WaylandWindow.cpp
+    )
+
+    target_link_libraries(XenWindow PRIVATE
+        wayland-client
+        wayland-egl
+        wayland-protocols
+        egl
+    )
+elseif (WINDOWING_SYSTEM STREQUAL "Apple")
+    add_definitions(_D_WS_APPLE)
+
+    target_sources(XenWindow PRIVATE
+        ${INCDIR}/XenWindow/AppleWindow.h 
+        ${SRCDIR}/AppleWindow.cpp
+    )
+endif()
 
 # EXAMPLES
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/Examples)
