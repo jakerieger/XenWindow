@@ -15,9 +15,5 @@ namespace Xen {
         void setTitle(const str& title) override;
 
     private:
-        str title;
-        int width;
-        int height;
-        bool maximized = false;
     };
 }  // namespace Xen

@@ -1,11 +1,8 @@
 #include <XenWindow/WaylandWindow.h>
 
 namespace Xen {
-    WaylandWindow::WaylandWindow(const str& title, int width, int height) {
-        this->title  = title;
-        this->width  = width;
-        this->height = height;
-    }
+    WaylandWindow::WaylandWindow(const str& title, int width, int height)
+        : INativeWindow(title, width, height) {}
 
     void WaylandWindow::show() {}
 
